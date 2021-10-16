@@ -1,5 +1,8 @@
 import RPi.GPIO as GPIO
 import time
+import requests
+import json
+import os
 from playsound import playsound
  
 SENSOR_PIN = 23
@@ -7,6 +10,13 @@ SENSOR_PIN = 23
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(SENSOR_PIN, GPIO.IN)
  
+hue_user = os.environ['HUE_USER']
+hue_ip = "192.168.178.33"
+
+payload = {"on":False}
+headers = {'content-type': 'application/json'}
+r = requests.put("http://"+hue_ip+"/api/"+hue_user+"/lights/1/state", data=json.dumps(payload), headers=headers)
+
 def mein_callback(channel):
 	print('Es gab eine Bewegung!')
 	# playsound('Music/Baal/attack1.wav')
