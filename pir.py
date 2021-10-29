@@ -3,6 +3,7 @@ import time
 import requests
 import json
 import os
+import random
 from playsound import playsound
  
 SENSOR_PIN = 23
@@ -18,8 +19,9 @@ headers = {'content-type': 'application/json'}
 r = requests.put("http://"+hue_ip+"/api/"+hue_user+"/lights/1/state", data=json.dumps(payload), headers=headers)
 
 def mein_callback(channel):
-	print('Es gab eine Bewegung!')
-	# playsound('Music/Baal/attack1.wav')
+	soundFile = random.randrange(1,5)
+	print('Es gab eine Bewegung! Spiele Sound ' + str(soundFile))
+	playsound('sounds/sound' + str(soundFile) + '.wav')
  
 try:
 	GPIO.add_event_detect(SENSOR_PIN , GPIO.RISING, callback=mein_callback)
