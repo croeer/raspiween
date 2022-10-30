@@ -37,11 +37,12 @@ def fire_effect():
 
 
 def mein_callback(channel):
-	soundFile = random.randrange(1,5)
+	soundFile = random.randrange(1,6)
 	print('Es gab eine Bewegung! Spiele Sound ' + str(soundFile))
-	#playsound('sounds/sound' + str(soundFile) + '.wav')
+
 	fire_thread = threading.Thread(target=fire_effect, name="Fire Effect Thread")
 	fire_thread.start()
+
 	soundfile = 'sounds/sound' + str(soundFile) + '.wav'
 	os.system(' aplay -D bluealsa:DEV=00:1D:DF:6E:F5:C3,PROFILE=a2dp ' + soundfile)
  
@@ -50,5 +51,6 @@ try:
 	while True:
 		time.sleep(100)
 except KeyboardInterrupt:
-	print "Beende..."
+	print ("Beende...")
+
 GPIO.cleanup()
